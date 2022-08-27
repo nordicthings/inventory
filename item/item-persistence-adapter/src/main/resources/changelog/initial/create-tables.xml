@@ -1,0 +1,41 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+		http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <changeSet id="create-tables" author="jens">
+        <createTable tableName="categories">
+            <column name="id" type="integer">
+                <constraints primaryKey="true" primaryKeyName="categories_pk"/>
+            </column>
+            <column name="ckey" type="varchar(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cname" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createSequence sequenceName="category_seq" cacheSize="1"/>
+        <createIndex tableName="categories" indexName="categories_ckey_uidx">
+            <column name="ckey"/>
+        </createIndex>
+
+        <createTable tableName="items">
+            <column name="id" type="varchar(36)">
+                <constraints primaryKey="true" primaryKeyName="items_pk"/>
+            </column>
+            <column name="ikey" type="varchar(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="iname" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="category_ref" type="varchar(36)"/>
+        </createTable>
+        <createSequence sequenceName="item_seq" cacheSize="1"/>
+        <createIndex tableName="items" indexName="items_ikey_uidx">
+            <column name="ikey"/>
+        </createIndex>
+
+    </changeSet>
+</databaseChangeLog>
